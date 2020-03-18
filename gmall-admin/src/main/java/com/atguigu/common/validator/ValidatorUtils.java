@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -23,27 +23,27 @@ import java.util.Set;
  * @author Mark sunlightcs@gmail.com
  */
 public class ValidatorUtils {
-    private static Validator validator;
+  private static Validator validator;
 
-    static {
-        validator = Validation.buildDefaultValidatorFactory().getValidator();
-    }
+  static {
+    validator = Validation.buildDefaultValidatorFactory().getValidator();
+  }
 
-    /**
-     * 校验对象
-     * @param object        待校验对象
-     * @param groups        待校验的组
-     * @throws RRException  校验不通过，则报RRException异常
-     */
-    public static void validateEntity(Object object, Class<?>... groups)
-            throws RRException {
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
-        if (!constraintViolations.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-            for(ConstraintViolation<Object> constraint:  constraintViolations){
-                msg.append(constraint.getMessage()).append("<br>");
-            }
-            throw new RRException(msg.toString());
-        }
+  /**
+   * 校验对象
+   * @param object        待校验对象
+   * @param groups        待校验的组
+   * @throws RRException  校验不通过，则报RRException异常
+   */
+  public static void validateEntity(Object object, Class<?>... groups)
+    throws RRException {
+    Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
+    if (!constraintViolations.isEmpty()) {
+      StringBuilder msg = new StringBuilder();
+      for (ConstraintViolation<Object> constraint : constraintViolations) {
+        msg.append(constraint.getMessage()).append("<br>");
+      }
+      throw new RRException(msg.toString());
     }
+  }
 }

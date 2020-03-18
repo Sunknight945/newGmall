@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -22,12 +22,12 @@ import javax.validation.constraints.NotBlank;
 @Data
 @ApiModel(value = "登录表单")
 public class LoginForm {
-    @ApiModelProperty(value = "手机号")
-    @NotBlank(message="手机号不能为空")
-    private String mobile;
+  @ApiModelProperty(value = "手机号")
+  @NotBlank(message = "手机号不能为空")
+  private String mobile;
 
-    @ApiModelProperty(value = "密码")
-    @NotBlank(message="密码不能为空")
-    private String password;
+  @ApiModelProperty(value = "密码")
+  @NotBlank(message = "密码不能为空")
+  private String password;
 
 }

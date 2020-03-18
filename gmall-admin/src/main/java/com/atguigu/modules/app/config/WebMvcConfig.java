@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -25,18 +25,18 @@ import java.util.List;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Autowired
-    private AuthorizationInterceptor authorizationInterceptor;
-    @Autowired
-    private LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
+  @Autowired
+  private AuthorizationInterceptor authorizationInterceptor;
+  @Autowired
+  private LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/app/**");
-    }
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(authorizationInterceptor).addPathPatterns("/app/**");
+  }
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(loginUserHandlerMethodArgumentResolver);
-    }
+  @Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+    argumentResolvers.add(loginUserHandlerMethodArgumentResolver);
+  }
 }

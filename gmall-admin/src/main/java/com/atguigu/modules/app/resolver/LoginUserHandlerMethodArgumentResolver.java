@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -28,26 +28,26 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  */
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType().isAssignableFrom(UserEntity.class) && parameter.hasParameterAnnotation(LoginUser.class);
+  @Override
+  public boolean supportsParameter(MethodParameter parameter) {
+    return parameter.getParameterType().isAssignableFrom(UserEntity.class) && parameter.hasParameterAnnotation(LoginUser.class);
+  }
+
+  @Override
+  public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container,
+                                NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
+    //获取用户ID
+    Object object = request.getAttribute(AuthorizationInterceptor.USER_KEY, RequestAttributes.SCOPE_REQUEST);
+    if (object == null) {
+      return null;
     }
 
-    @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container,
-                                  NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
-        //获取用户ID
-        Object object = request.getAttribute(AuthorizationInterceptor.USER_KEY, RequestAttributes.SCOPE_REQUEST);
-        if(object == null){
-            return null;
-        }
+    //获取用户信息
+    UserEntity user = userService.getById((Long) object);
 
-        //获取用户信息
-        UserEntity user = userService.getById((Long)object);
-
-        return user;
-    }
+    return user;
+  }
 }

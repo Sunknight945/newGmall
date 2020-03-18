@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -25,15 +25,15 @@ import java.util.Map;
 @Service("sysLogService")
 public class SysLogServiceImpl extends ServiceImpl<SysLogDao, SysLogEntity> implements SysLogService {
 
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        String key = (String)params.get("key");
+  @Override
+  public PageUtils queryPage(Map<String, Object> params) {
+    String key = (String) params.get("key");
 
-        IPage<SysLogEntity> page = this.page(
-            new Query<SysLogEntity>().getPage(params),
-            new QueryWrapper<SysLogEntity>().like(StringUtils.isNotBlank(key),"username", key)
-        );
+    IPage<SysLogEntity> page = this.page(
+      new Query<SysLogEntity>().getPage(params),
+      new QueryWrapper<SysLogEntity>().like(StringUtils.isNotBlank(key), "username", key)
+    );
 
-        return new PageUtils(page);
-    }
+    return new PageUtils(page);
+  }
 }

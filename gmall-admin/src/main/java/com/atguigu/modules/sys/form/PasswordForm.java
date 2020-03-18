@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -17,13 +17,13 @@ import lombok.Data;
  */
 @Data
 public class PasswordForm {
-    /**
-     * 原密码
-     */
-    private String password;
-    /**
-     * 新密码
-     */
-    private String newPassword;
+  /**
+   * 原密码
+   */
+  private String password;
+  /**
+   * 新密码
+   */
+  private String newPassword;
 
 }

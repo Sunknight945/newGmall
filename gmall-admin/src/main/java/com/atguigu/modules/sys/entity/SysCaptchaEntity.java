@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -23,15 +23,15 @@ import java.util.Date;
 @Data
 @TableName("sys_captcha")
 public class SysCaptchaEntity {
-    @TableId(type = IdType.INPUT)
-    private String uuid;
-    /**
-     * 验证码
-     */
-    private String code;
-    /**
-     * 过期时间
-     */
-    private Date expireTime;
+  @TableId(type = IdType.INPUT)
+  private String uuid;
+  /**
+   * 验证码
+   */
+  private String code;
+  /**
+   * 过期时间
+   */
+  private Date expireTime;
 
 }

@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 谷粒开源 All rights reserved.
- *
+ * <p>
  * https://www.guli.cloud
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -31,51 +31,51 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean("securityManager")
-    public SecurityManager securityManager(OAuth2Realm oAuth2Realm) {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(oAuth2Realm);
-        securityManager.setRememberMeManager(null);
-        return securityManager;
-    }
+  @Bean("securityManager")
+  public SecurityManager securityManager(OAuth2Realm oAuth2Realm) {
+    DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+    securityManager.setRealm(oAuth2Realm);
+    securityManager.setRememberMeManager(null);
+    return securityManager;
+  }
 
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager);
+  @Bean("shiroFilter")
+  public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+    shiroFilter.setSecurityManager(securityManager);
 
-        //oauth过滤
-        Map<String, Filter> filters = new HashMap<>();
-        filters.put("oauth2", new OAuth2Filter());
-        shiroFilter.setFilters(filters);
+    //oauth过滤
+    Map<String, Filter> filters = new HashMap<>();
+    filters.put("oauth2", new OAuth2Filter());
+    shiroFilter.setFilters(filters);
 
-        Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/webjars/**", "anon");
-        filterMap.put("/druid/**", "anon");
-        filterMap.put("/app/**", "anon");
-        filterMap.put("/sys/login", "anon");
-        filterMap.put("/swagger/**", "anon");
-        filterMap.put("/v2/api-docs", "anon");
-        filterMap.put("/swagger-ui.html", "anon");
-        filterMap.put("/swagger-resources/**", "anon");
-        filterMap.put("/captcha.jpg", "anon");
-        filterMap.put("/aaa.txt", "anon");
-        filterMap.put("/**", "oauth2");
-        shiroFilter.setFilterChainDefinitionMap(filterMap);
+    Map<String, String> filterMap = new LinkedHashMap<>();
+    filterMap.put("/webjars/**", "anon");
+    filterMap.put("/druid/**", "anon");
+    filterMap.put("/app/**", "anon");
+    filterMap.put("/sys/login", "anon");
+    filterMap.put("/swagger/**", "anon");
+    filterMap.put("/v2/api-docs", "anon");
+    filterMap.put("/swagger-ui.html", "anon");
+    filterMap.put("/swagger-resources/**", "anon");
+    filterMap.put("/captcha.jpg", "anon");
+    filterMap.put("/aaa.txt", "anon");
+    filterMap.put("/**", "oauth2");
+    shiroFilter.setFilterChainDefinitionMap(filterMap);
 
-        return shiroFilter;
-    }
+    return shiroFilter;
+  }
 
-    @Bean("lifecycleBeanPostProcessor")
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
+  @Bean("lifecycleBeanPostProcessor")
+  public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+    return new LifecycleBeanPostProcessor();
+  }
 
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
-        advisor.setSecurityManager(securityManager);
-        return advisor;
-    }
+  @Bean
+  public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+    AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+    advisor.setSecurityManager(securityManager);
+    return advisor;
+  }
 
 }
