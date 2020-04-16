@@ -8,3 +8,9 @@ spring:
         namespace: ab7b1d0c-0bc5-4828-93c2-699678ec92cf
         group: dev
         file-extension: yml
+#mybatis
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    io.prong.oauth.service.dao: trace # 改成你的mapper文件所在包路径

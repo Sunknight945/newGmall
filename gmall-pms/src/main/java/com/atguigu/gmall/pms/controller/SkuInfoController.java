@@ -1,20 +1,18 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.SkuInfoEntity;
+import com.atguigu.gmall.pms.service.SkuInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.SkuInfoEntity;
-import com.atguigu.gmall.pms.service.SkuInfoService;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -22,7 +20,7 @@ import com.atguigu.gmall.pms.service.SkuInfoService;
  *
  * @author uiys
  * @email uiys@Gmall.com
- * @date 2020-03-18 03:23:02
+ * @date 2020-03-19 01:51:34
  */
 @Api(tags = "sku信息 管理")
 @RestController
@@ -30,6 +28,19 @@ import com.atguigu.gmall.pms.service.SkuInfoService;
 public class SkuInfoController {
   @Autowired
   private SkuInfoService skuInfoService;
+
+
+  /**
+   * 根据spuId 检索它对应的skuList列表
+   * @return
+   */
+  @ApiOperation("分页查询(根据spuId 检索它对应的skuList列表)")
+  @GetMapping("{spuId}")
+  public Resp<List<SkuInfoEntity>> querySkuPageBySpuId(@PathVariable("spuId") Long spuId) {
+    List<SkuInfoEntity> skuInfoEntityList = skuInfoService.querySkuPageBySpuId(spuId);
+    return Resp.ok(skuInfoEntityList);
+  }
+
 
   /**
    * 列表

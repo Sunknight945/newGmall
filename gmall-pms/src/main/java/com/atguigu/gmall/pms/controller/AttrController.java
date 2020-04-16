@@ -1,20 +1,18 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.AttrEntity;
+import com.atguigu.gmall.pms.service.AttrService;
+import com.atguigu.gmall.pms.vo.AttrVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.AttrEntity;
-import com.atguigu.gmall.pms.service.AttrService;
+import java.util.Arrays;
 
 
 /**
@@ -22,7 +20,7 @@ import com.atguigu.gmall.pms.service.AttrService;
  *
  * @author uiys
  * @email uiys@Gmall.com
- * @date 2020-03-18 03:23:02
+ * @date 2020-03-19 01:51:33
  */
 @Api(tags = "商品属性 管理")
 @RestController
@@ -30,6 +28,15 @@ import com.atguigu.gmall.pms.service.AttrService;
 public class AttrController {
   @Autowired
   private AttrService attrService;
+
+
+  @GetMapping
+  public Resp<PageVo> queryAttrsByCid(QueryCondition condition, @RequestParam("cid") Long cid, @RequestParam(value = "type", defaultValue = "1") Integer type) {
+    PageVo page = attrService.queryAttrsByCid(condition, cid, type);
+
+    return Resp.ok(page);
+  }
+
 
   /**
    * 列表
@@ -62,8 +69,10 @@ public class AttrController {
   @ApiOperation("保存")
   @PostMapping("/save")
   @PreAuthorize("hasAuthority('pms:attr:save')")
-  public Resp<Object> save(@RequestBody AttrEntity attr) {
-    attrService.save(attr);
+  public Resp<Object> save(@RequestBody AttrVo attrVo) {
+    //逆向工程生成的 都未单表操作, 但是 我们实际需要保存的attr 是 两张表的  attr 和 relation 表 所以需要自己写 save方法
+    // attrService.save(attr);
+    this.attrService.saveAttr(attrVo);
 
     return Resp.ok(null);
   }

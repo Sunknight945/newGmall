@@ -3,7 +3,7 @@
 
 <mapper namespace="com.atguigu.gmall.oms.dao.OrderDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.atguigu.gmall.oms.entity.OrderEntity" id="orderMap">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
@@ -48,6 +48,18 @@
         <result property="commentTime" column="comment_time"/>
         <result property="modifyTime" column="modify_time"/>
     </resultMap>
+    <update id="closeOrder" parameterType="com.atguigu.gmall.oms.entity.OrderEntity">
+        update guli_oms.oms_order
+        set `status` = '4'
+        where order_sn = #{orderToken,jdbcType=VARCHAR}
+          and `status` = '0';
+    </update>
+    <update id="payOrder" parameterType="com.atguigu.gmall.oms.entity.OrderEntity">
+        update guli_oms.oms_order
+        set `status`='1'
+        where order_sn = #{orderToken,jdbcType=VARCHAR}
+          and `status` = '0';
+    </update>
 
 
 </mapper>

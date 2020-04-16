@@ -1,0 +1,38 @@
+server:
+  port: 8084
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.255.130/guli_oms?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.255.130
+  rabbitmq:
+    host: 192.168.255.130
+    port: 5672
+    virtual-host: /uiys
+    username: uiys
+    password: uiys
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #自增id
+      id-type: auto
+  mapper-locations: classpath:mapper/oms/**/*.xml
+logging:
+  level:
+    com.atguigu.gmall.pms.dao: debug
+    com.alibaba.nacos.client.naming: error
+item:
+  rabbitmq:
+    exchange: GMALL-PMS-EXCHANGES

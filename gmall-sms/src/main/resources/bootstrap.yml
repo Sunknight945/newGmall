@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sms-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: cfb58ac5-a574-4359-b82b-b57cd692c79a
+        group: dev
+        file-extension: yml
+logging:
+  level:
+    io.prong.oauth.service.dao: trace # 改成你的mapper文件所在包路径

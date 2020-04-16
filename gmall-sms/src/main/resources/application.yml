@@ -1,0 +1,28 @@
+server:
+  port: 8085
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.255.130:3306/guli_sms
+    username: root
+    password: 123456
+  redis:
+    host: 192.168.255.130
+mybatis-plus:
+  global-config:
+    db-config:
+      #自增id
+      id-type: auto
+  mapper-locations: classpath:mapper/sms/**/*.xml
+
+
+logging:
+  level:
+    com.atguigu.gmall.pms.dao: debug
+    com.alibaba.nacos.client.naming: error
+
+

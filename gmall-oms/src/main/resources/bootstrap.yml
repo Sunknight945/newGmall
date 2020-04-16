@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: oms-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 5d504842-b916-497e-9c47-937bc4d525a5
+        group: dev
+        file-extension: yml
+#mybatis
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    io.prong.oauth.service.dao: trace # 改成你的mapper文件所在包路径

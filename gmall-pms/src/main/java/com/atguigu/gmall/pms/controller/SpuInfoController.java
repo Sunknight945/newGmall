@@ -1,20 +1,20 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
+import com.atguigu.gmall.pms.entity.SpuInfoEntity;
+import com.atguigu.gmall.pms.service.SpuInfoService;
+import com.atguigu.gmall.pms.vo.SpuInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.SpuInfoEntity;
-import com.atguigu.gmall.pms.service.SpuInfoService;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -22,7 +22,7 @@ import com.atguigu.gmall.pms.service.SpuInfoService;
  *
  * @author uiys
  * @email uiys@Gmall.com
- * @date 2020-03-18 03:23:02
+ * @date 2020-03-19 01:51:33
  */
 @Api(tags = "spu信息 管理")
 @RestController
@@ -30,6 +30,29 @@ import com.atguigu.gmall.pms.service.SpuInfoService;
 public class SpuInfoController {
   @Autowired
   private SpuInfoService spuInfoService;
+
+
+  @PostMapping("page")
+  public Resp<List<SpuInfoEntity>> querySpusByPage(@RequestBody QueryCondition queryCondition) {
+    PageVo pageVo = this.spuInfoService.queryPage(queryCondition);
+    List<SpuInfoEntity> spuInfoEntityList = (List<SpuInfoEntity>) pageVo.getList();
+    return Resp.ok(spuInfoEntityList);
+  }
+
+
+  /**
+   * 分页查询
+   *
+   * @param condition
+   * @param catId     http://127.0.0.1:8888/pms/spuinfo?t=1584716291187&page=1&limit=10&key=&catId=0
+   */
+  @ApiOperation("分页查询")
+  @GetMapping
+  public Resp<PageVo> querySpuPage(QueryCondition condition, @RequestParam("catId") Long catId) {
+    PageVo page = this.spuInfoService.querySpuPage(condition, catId);
+    return Resp.ok(page);
+  }
+
 
   /**
    * 列表
@@ -58,13 +81,18 @@ public class SpuInfoController {
 
   /**
    * 保存
+   * <p>
+   * 这个保存被修改了,  不是 逆向工程自动生成的单张表的
+   * 查询,
+   * 这个 有很多表.  需要一一实现保存. 有 spu  sku , 三张营销表,
+   * 销售属性和他的值 继承ProductAttrValueEntity 的 BaseAttrVo
+   * 应该有 9张表甚至更多.
    */
   @ApiOperation("保存")
   @PostMapping("/save")
   @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-  public Resp<Object> save(@RequestBody SpuInfoEntity spuInfo) {
-    spuInfoService.save(spuInfo);
-
+  public Resp<Object> save(@RequestBody SpuInfoVo spuInfoVo) {
+    spuInfoService.bigSave(spuInfoVo);
     return Resp.ok(null);
   }
 
@@ -76,7 +104,6 @@ public class SpuInfoController {
   @PreAuthorize("hasAuthority('pms:spuinfo:update')")
   public Resp<Object> update(@RequestBody SpuInfoEntity spuInfo) {
     spuInfoService.updateById(spuInfo);
-
     return Resp.ok(null);
   }
 
@@ -88,7 +115,6 @@ public class SpuInfoController {
   @PreAuthorize("hasAuthority('pms:spuinfo:delete')")
   public Resp<Object> delete(@RequestBody Long[] ids) {
     spuInfoService.removeByIds(Arrays.asList(ids));
-
     return Resp.ok(null);
   }
 

@@ -5,16 +5,25 @@
 
     <groupId>com.atguigu</groupId>
     <artifactId>gmall</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <description>Demo project for Spring Boot</description>
     <modules>
         <module>gmall-core</module>
         <module>gmall-generator</module>
+        <module>gmall-gateway</module>
         <module>gmall-admin</module>
         <module>gmall-pms</module>
         <module>gmall-sms</module>
         <module>gmall-wms</module>
         <module>gmall-ums</module>
         <module>gmall-oms</module>
+        <module>sms-interface</module>
+        <module>gmall-pms-interface</module>
+        <module>gmall-wms-interface</module>
+        <module>gmall-ums-interface</module>
+        <module>gmall-cart-interface</module>
+        <module>gmall-oms-interface</module>
+
     </modules>
 </project>

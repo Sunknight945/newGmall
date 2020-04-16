@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MybatisPlusConfig {
+
   @Bean
-  PaginationInterceptor paginationInterceptor() {
+  public PaginationInterceptor paginationInterceptor() {
     PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-    // paginationInterceptor.setLimit(100);
     return paginationInterceptor;
   }
 

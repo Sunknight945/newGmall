@@ -16,5 +16,29 @@
         <result property="productCount" column="product_count"/>
     </resultMap>
 
+    <select id="queryCategoryListByParenCidAndLevel" resultMap="categoryMap">
+        select *
+        from guli_pms.pms_category a
+        where a.cat_level = #{level,jdbcType=INTEGER}
+          and a.parent_cid = #{parentCid,jdbcType=BIGINT}
+    </select>
 
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.atguigu.gmall.pms.vo.CategoryEntityVo" id="CategoryEntityVoMap">
+        <result property="catId" column="cat_id"/>
+        <result property="name" column="name"/>
+        <result property="parentCid" column="parent_cid"/>
+        <result property="catLevel" column="cat_level"/>
+        <result property="showStatus" column="show_status"/>
+        <result property="sort" column="sort"/>
+        <result property="icon" column="icon"/>
+        <result property="productUnit" column="product_unit"/>
+        <result property="productCount" column="product_count"/>
+        <collection property="subs" ofType="com.atguigu.gmall.pms.entity.CategoryEntity" javaType="List" select="querySubCategoriesByPid" column="cat_id"/>
+    </resultMap>
+    <select id="querySubCategoriesByPid" resultMap="CategoryEntityVoMap">
+        select *
+        from guli_pms.pms_category
+        where parent_cid = #{pid,jdbcType=BIGINT};
+    </select>
 </mapper>

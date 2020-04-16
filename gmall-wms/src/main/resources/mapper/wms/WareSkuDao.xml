@@ -3,7 +3,7 @@
 
 <mapper namespace="com.atguigu.gmall.wms.dao.WareSkuDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.atguigu.gmall.wms.entity.WareSkuEntity" id="wareSkuMap">
         <result property="id" column="id"/>
         <result property="skuId" column="sku_id"/>
@@ -13,5 +13,31 @@
         <result property="stockLocked" column="stock_locked"/>
     </resultMap>
 
+    <update id="lockStock" parameterType="com.atguigu.gmall.wms.entity.WareSkuEntity">
+        update guli_wms.wms_ware_sku
+        set wms_ware_sku.stock=stock - #{count,jdbcType=INTEGER},
+            stock_locked=stock_locked + #{count,jdbcType=INTEGER}
+        where sku_id = #{skuId,jdbcType=BIGINT}
+          and stock >= #{count,jdbcType=INTEGER}
+          and id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="checkStock" resultMap="wareSkuMap">
+        select *
+        from guli_wms.wms_ware_sku
+        where sku_id = #{skuId,jdbcType=BIGINT}
+          and stock >= #{count,jdbcType=INTEGER};
+    </select>
 
+    <update id="setLockSkuToUnlock" parameterType="com.atguigu.gmall.wms.entity.WareSkuEntity">
+        update guli_wms.wms_ware_sku
+        set stock=stock + #{count,jdbcType=INTEGER},
+            stock_locked=stock_locked - #{count,jdbcType=INTEGER}
+        where id = #{skuWareId,jdbcType=BIGINT}
+          and sku_id = #{skuId,jdbcType=BIGINT}
+    </update>
+    <update id="minusStore" parameterType="com.atguigu.gmall.wms.entity.WareSkuEntity">
+        update guli_wms.wms_ware_sku
+        set stock_locked=stock_locked - #{count,jdbcType=INTEGER}
+        where id = #{skuWareId,jdbcType=BIGINT}
+    </update>
 </mapper>
